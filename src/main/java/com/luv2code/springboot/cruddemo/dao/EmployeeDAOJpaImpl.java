@@ -69,6 +69,8 @@ public class EmployeeDAOJpaImpl implements EmployeeDAO {
 				
 				theQuery.setParameter("employeeId", theId);
 				
+				
+				// execute the query
 				theQuery.executeUpdate();
 
 	}
