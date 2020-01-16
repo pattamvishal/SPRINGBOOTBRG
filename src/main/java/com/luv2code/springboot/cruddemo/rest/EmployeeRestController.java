@@ -112,7 +112,7 @@ public class EmployeeRestController {
 	
 	@GetMapping("/workout")
 	public String getDailyWorkout() {
-		return "run a hard 5k !, you are the champ vishal,,,,,,,";
+		return "run a hard 5k !, you are the champ vishal kumar pattam";
 	}
 	
 	@GetMapping("/fortune")
