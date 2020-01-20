@@ -117,7 +117,7 @@ public class EmployeeRestController {
 	
 	@GetMapping("/fortune")
 	public String getDailyFortune() {
-		return "today is yourlucky day";
+		return "today is yourlucky day, vishal enjoy your day";
 	}
 
 }
