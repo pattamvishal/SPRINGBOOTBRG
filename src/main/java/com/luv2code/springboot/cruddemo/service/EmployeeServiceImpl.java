@@ -1,12 +1,15 @@
  package com.luv2code.springboot.cruddemo.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.luv2code.springboot.cruddemo.dao.EmployeeDAO;
+//import com.luv2code.springboot.cruddemo.dao.EmployeeDAO;
+import com.luv2code.springboot.cruddemo.dao.EmployeeRepository;
 import com.luv2code.springboot.cruddemo.entity.Employee;
 
 
@@ -15,43 +18,49 @@ import com.luv2code.springboot.cruddemo.entity.Employee;
 public class EmployeeServiceImpl implements EmployeeService {
 
 	
-	private EmployeeDAO employeeDao;
+	private EmployeeRepository employeeRepository;
 	
-	
-	
-	
-	public EmployeeServiceImpl(@Qualifier("employeeDAOJpaImpl")  EmployeeDAO theemployeeDao) {
-		employeeDao = theemployeeDao;
+	@Autowired
+	public EmployeeServiceImpl(  EmployeeRepository theEmployeeRepository) {
+		employeeRepository = theEmployeeRepository;
 	}
 
 	@Override
-	@Transactional
 	public List<Employee> findAll() {
 		// TODO Auto-generated method stub
-		return employeeDao.findAll();
+		return employeeRepository.findAll();
 	}
 
 	@Override
-	@Transactional
 	public Employee findById(int theId) {
 		// TODO Auto-generated method stub
-		return employeeDao.findById(theId);
+		Optional<Employee> result = employeeRepository.findById(theId);
+		
+		Employee theEmployee = null;
+		
+		if(result.isPresent())
+		{
+			theEmployee= result.get();
+		}
+		else {
+		 throw new RuntimeException("did not find the employee id-"+theId);
+		}
+			
+		return theEmployee;
 	}
 
 	@Override
-	@Transactional
 	public void save(Employee theEmployee) {
 		// TODO Auto-generated method stub
 
-		employeeDao.save(theEmployee);
+		employeeRepository.save(theEmployee);
 		
 	}
 
 	@Override 
-	@Transactional
 	public void deleteById(int theId) {
 		// TODO Auto-generated method stub
-		employeeDao.deleteById(theId);
+		employeeRepository.deleteById(theId);
 
 	}
 
